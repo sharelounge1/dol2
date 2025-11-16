@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재연 - 따뜻한 친근한 컨셉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FFF5E1 0%, #FFE4E1 50%, #FFF0F5 100%);
+            color: #5D4E37;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #FFFAF0 0%, #FFF5EE 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #FFE4B5 0%, #FFDAB9 100%);
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom-left-radius: 32px;
+            border-bottom-right-radius: 32px;
+            box-shadow: 0 8px 24px rgba(255, 218, 185, 0.3);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .menu-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .greeting {
+            text-align: center;
+        }
+
+        .greeting-emoji {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+
+        .greeting-text {
+            font-size: 16px;
+            color: #8B7355;
+            margin-bottom: 4px;
+        }
+
+        .greeting-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #5D4E37;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: flex;
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(139, 115, 85, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #D2691E;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #8B7355;
+        }
+
+        /* Content */
+        .content {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFE4B5 0%, #FFDAB9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .section-title-group {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #5D4E37;
+            margin-bottom: 4px;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: #8B7355;
+        }
+
+        /* Featured Card */
+        .featured-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(139, 115, 85, 0.15);
+            margin-bottom: 16px;
+        }
+
+        .featured-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, #FFE4B5 0%, #FFDAB9 50%, #FFE4E1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+        }
+
+        .featured-time {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #D2691E;
+        }
+
+        .featured-info {
+            padding: 24px;
+        }
+
+        .featured-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #5D4E37;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .heart-icon {
+            color: #FF69B4;
+        }
+
+        .featured-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .detail-tag {
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
+            color: #D2691E;
+            padding: 8px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .featured-actions {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 16px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .action-btn.like {
+            background: linear-gradient(135deg, #FFE4E1 0%, #FFC0CB 100%);
+            color: #FF1493;
+        }
+
+        .action-btn.view {
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(255, 105, 180, 0.3);
+        }
+
+        .action-btn.message {
+            background: linear-gradient(135deg, #FFE4B5 0%, #FFDAB9 100%);
+            color: #D2691E;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.2);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #FFE4B5 0%, #FFE4E1 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #FF69B4;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(255, 105, 180, 0.3);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #5D4E37;
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: #8B7355;
+        }
+
+        .timeline-content {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .timeline-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFE4B5 0%, #FFDAB9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .timeline-info {
+            flex: 1;
+        }
+
+        .timeline-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #5D4E37;
+            margin-bottom: 4px;
+        }
+
+        .timeline-detail {
+            font-size: 13px;
+            color: #8B7355;
+        }
+
+        /* Timer Card */
+        .timer-card {
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE4E1 100%);
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .timer-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .timer-label {
+            font-size: 15px;
+            color: #8B7355;
+            margin-bottom: 12px;
+        }
+
+        .timer {
+            font-size: 40px;
+            font-weight: 700;
+            color: #FF1493;
+            letter-spacing: 2px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 428px;
+            width: 100%;
+            background: rgba(255, 250, 240, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid #FFE4B5;
+            padding: 12px 20px 20px;
+            display: flex;
+            justify-content: space-around;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: linear-gradient(135deg, #FFE4B5 0%, #FFDAB9 100%);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #8B7355;
+        }
+
+        /* Spacer */
+        .spacer {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <div class="menu-btn">☰</div>
+                <div class="menu-btn">🔔</div>
+            </div>
+            <div class="greeting">
+                <div class="greeting-emoji">☺️</div>
+                <div class="greeting-text">안녕하세요</div>
+                <div class="greeting-name">김재연님</div>
+            </div>
+        </header>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-icon">💝</div>
+                <div class="stat-number">12</div>
+                <div class="stat-label">받은 호감</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✨</div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">매칭 성공</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💌</div>
+                <div class="stat-number">5</div>
+                <div class="stat-label">새 메시지</div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Today's Match -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon">🌸</div>
+                    <div class="section-title-group">
+                        <div class="section-title">오늘의 특별한 인연</div>
+                        <div class="section-subtitle">따뜻한 만남을 기다리고 있어요</div>
+                    </div>
+                </div>
+
+                <div class="featured-card">
+                    <div class="featured-image">
+                        👤
+                        <div class="featured-badge">✨ PREMIUM</div>
+                        <div class="featured-time">⏰ 오전 9시 발행</div>
+                    </div>
+                    <div class="featured-info">
+                        <div class="featured-name">
+                            <span>김**, 38세</span>
+                            <span class="heart-icon">💕</span>
+                        </div>
+                        <div class="featured-details">
+                            <span class="detail-tag">📍 서울 강남구</span>
+                            <span class="detail-tag">👶 자녀 1명</span>
+                            <span class="detail-tag">💼 금융/보험</span>
+                            <span class="detail-tag">🎓 대졸</span>
+                        </div>
+                        <div class="featured-actions">
+                            <button class="action-btn like">
+                                <span>💖</span>
+                                <span>호감</span>
+                            </button>
+                            <button class="action-btn view">
+                                <span>👀</span>
+                                <span>프로필 보기</span>
+                            </button>
+                            <button class="action-btn message">
+                                <span>✉️</span>
+                                <span>메시지</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timer -->
+                <div class="timer-card">
+                    <div class="timer-icon">🌙</div>
+                    <div class="timer-label">다음 매칭까지</div>
+                    <div class="timer">05:42:18</div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon">🎯</div>
+                    <div class="section-title-group">
+                        <div class="section-title">최근 활동</div>
+                        <div class="section-subtitle">나의 인연 찾기 여정</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">💝 호감을 받았어요</div>
+                            <div class="timeline-time">방금 전</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-avatar">👤</div>
+                            <div class="timeline-info">
+                                <div class="timeline-name">이**, 42세</div>
+                                <div class="timeline-detail">서울 서초구 · IT/컴퓨터</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">✨ 매칭이 성공했어요</div>
+                            <div class="timeline-time">1시간 전</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-avatar">👤</div>
+                            <div class="timeline-info">
+                                <div class="timeline-name">박**, 40세</div>
+                                <div class="timeline-detail">서울 강남구 · 금융/보험</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-title">📩 메시지를 받았어요</div>
+                            <div class="timeline-time">2시간 전</div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-avatar">👤</div>
+                            <div class="timeline-info">
+                                <div class="timeline-name">최**, 45세</div>
+                                <div class="timeline-detail">서울 송파구 · 교육/학원</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="spacer"></div>
+
+        <!-- Bottom Nav -->
+        <nav class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">홈</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">대화</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">알림</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">😊</div>
+                <div class="nav-label">MY</div>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Timer
+        function updateTimer() {
+            const timerElement = document.querySelector('.timer');
+            if (timerElement) {
+                const now = new Date();
+                const target = new Date();
+                target.setHours(18, 0, 0, 0);
+                if (target < now) {
+                    target.setDate(target.getDate() + 1);
+                }
+                const diff = target - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>

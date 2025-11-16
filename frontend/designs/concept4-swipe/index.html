@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재연 - 카드 스와이프 컨셉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #E63946 0%, #F77F00 50%, #FCBF49 100%);
+            color: #FFFFFF;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .top-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .top-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        /* Card Stack */
+        .card-stack {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .swipe-card {
+            width: 100%;
+            max-width: 380px;
+            height: 580px;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: absolute;
+            cursor: grab;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .swipe-card:active {
+            cursor: grabbing;
+        }
+
+        .swipe-card:nth-child(2) {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        .swipe-card:nth-child(3) {
+            transform: scale(0.9) translateY(40px);
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .swipe-card:first-child {
+            z-index: 2;
+        }
+
+        .card-image-section {
+            height: 75%;
+            background: linear-gradient(135deg, #E63946 0%, #F77F00 50%, #FCBF49 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .card-badges-top {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .card-badge {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #E63946;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .card-name {
+            font-size: 32px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+            margin-bottom: 8px;
+        }
+
+        .card-location {
+            font-size: 16px;
+            color: rgba(255,255,255,0.95);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .card-info-section {
+            height: 25%;
+            padding: 20px 24px;
+            background: white;
+            color: #2C3E50;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .info-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .info-icon {
+            font-size: 18px;
+        }
+
+        .info-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #F8F9FA;
+            color: #6C757D;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Swipe Indicators */
+        .swipe-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 80px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .swipe-indicator.like {
+            left: 40px;
+        }
+
+        .swipe-indicator.nope {
+            right: 40px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            padding: 24px 20px 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .action-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .action-button:hover {
+            transform: scale(1.1);
+        }
+
+        .action-button:active {
+            transform: scale(0.95);
+        }
+
+        .action-button.pass {
+            background: linear-gradient(135deg, #E63946 0%, #D62828 100%);
+        }
+
+        .action-button.super {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #06FFA5 0%, #00D9FF 100%);
+        }
+
+        .action-button.like {
+            background: linear-gradient(135deg, #52A885 0%, #2F7A5C 100%);
+        }
+
+        .action-button.message {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #F77F00 0%, #D06500 100%);
+        }
+
+        /* No More Cards */
+        .no-cards {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .no-cards.show {
+            display: flex;
+        }
+
+        .no-cards-icon {
+            font-size: 120px;
+            margin-bottom: 24px;
+        }
+
+        .no-cards-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .no-cards-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .reload-button {
+            padding: 16px 32px;
+            border-radius: 32px;
+            background: white;
+            color: #E63946;
+            border: none;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .reload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+        }
+
+        /* Timer Overlay */
+        .timer-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            display: none;
+        }
+
+        .timer-overlay.show {
+            display: flex;
+        }
+
+        .timer-content {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .timer-icon {
+            font-size: 120px;
+            margin-bottom: 24px;
+        }
+
+        .timer-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .timer-display {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .timer-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="logo">💕 재연</div>
+            <div class="top-actions">
+                <div class="top-btn" title="필터">⚙️</div>
+                <div class="top-btn" title="알림">🔔</div>
+            </div>
+        </div>
+
+        <!-- Card Stack -->
+        <div class="card-stack" id="cardStack">
+            <!-- Card 1 -->
+            <div class="swipe-card" data-card="1">
+                <div class="card-image-section">
+                    👤
+                    <div class="card-overlay">
+                        <div class="card-badges-top">
+                            <div class="card-badge">🎓 인서울대</div>
+                            <div class="card-badge">🏢 대기업</div>
+                            <div class="card-badge">💰 자산인증</div>
+                        </div>
+                        <div class="card-name">김**, 38세</div>
+                        <div class="card-location">
+                            <span>📍</span>
+                            <span>서울 강남구</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-info-section">
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="info-icon">👶</span>
+                            <span>이혼 1회 · 자녀 1명</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="info-icon">💼</span>
+                            <span>금융/보험</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📏</span>
+                            <span>165cm</span>
+                        </div>
+                    </div>
+                    <div class="info-tags">
+                        <span class="tag">대졸</span>
+                        <span class="tag">비흡연</span>
+                        <span class="tag">가끔 음주</span>
+                    </div>
+                </div>
+                <div class="swipe-indicator like">💚</div>
+                <div class="swipe-indicator nope">❌</div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="swipe-card" data-card="2">
+                <div class="card-image-section">
+                    👤
+                    <div class="card-overlay">
+                        <div class="card-badges-top">
+                            <div class="card-badge">🎓 인서울대</div>
+                        </div>
+                        <div class="card-name">이**, 42세</div>
+                        <div class="card-location">
+                            <span>📍</span>
+                            <span>서울 서초구</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-info-section">
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="info-icon">👶</span>
+                            <span>이혼 1회 · 자녀 없음</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="info-icon">💼</span>
+                            <span>IT/컴퓨터</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📏</span>
+                            <span>168cm</span>
+                        </div>
+                    </div>
+                    <div class="info-tags">
+                        <span class="tag">대졸</span>
+                        <span class="tag">비흡연</span>
+                        <span class="tag">가끔 음주</span>
+                    </div>
+                </div>
+                <div class="swipe-indicator like">💚</div>
+                <div class="swipe-indicator nope">❌</div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="swipe-card" data-card="3">
+                <div class="card-image-section">
+                    👤
+                    <div class="card-overlay">
+                        <div class="card-badges-top">
+                            <div class="card-badge">💰 자산인증</div>
+                        </div>
+                        <div class="card-name">박**, 40세</div>
+                        <div class="card-location">
+                            <span>📍</span>
+                            <span>서울 송파구</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-info-section">
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="info-icon">👶</span>
+                            <span>이혼 1회 · 자녀 2명</span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-item">
+                            <span class="info-icon">💼</span>
+                            <span>교육/학원</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📏</span>
+                            <span>162cm</span>
+                        </div>
+                    </div>
+                    <div class="info-tags">
+                        <span class="tag">대졸</span>
+                        <span class="tag">비흡연</span>
+                        <span class="tag">안 마심</span>
+                    </div>
+                </div>
+                <div class="swipe-indicator like">💚</div>
+                <div class="swipe-indicator nope">❌</div>
+            </div>
+
+            <!-- No More Cards -->
+            <div class="no-cards" id="noCards">
+                <div class="no-cards-icon">🌙</div>
+                <div class="no-cards-title">다음 매칭까지</div>
+                <div class="no-cards-subtitle">오후 6시에 새로운 카드가 발행됩니다</div>
+                <div class="timer-display" id="nextCardTimer">05:42:18</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-button pass" onclick="swipeCard('nope')">❌</button>
+            <button class="action-button super" onclick="swipeCard('super')">⭐</button>
+            <button class="action-button like" onclick="swipeCard('like')">💚</button>
+            <button class="action-button message" onclick="openMessage()">💌</button>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🔥</div>
+                <div class="nav-label">발견</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">대화</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">❤️</div>
+                <div class="nav-label">호감</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">MY</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCardIndex = 0;
+        const cards = document.querySelectorAll('.swipe-card');
+
+        // Swipe functionality
+        function swipeCard(direction) {
+            if (currentCardIndex >= cards.length) return;
+
+            const card = cards[currentCardIndex];
+            const indicator = direction === 'like' || direction === 'super'
+                ? card.querySelector('.swipe-indicator.like')
+                : card.querySelector('.swipe-indicator.nope');
+
+            indicator.style.opacity = '1';
+
+            setTimeout(() => {
+                const moveX = direction === 'like' || direction === 'super' ? 1000 : -1000;
+                card.style.transform = `translateX(${moveX}px) rotate(${moveX > 0 ? 20 : -20}deg)`;
+                card.style.opacity = '0';
+
+                setTimeout(() => {
+                    card.style.display = 'none';
+                    currentCardIndex++;
+
+                    if (currentCardIndex >= cards.length) {
+                        document.getElementById('noCards').classList.add('show');
+                    }
+                }, 300);
+            }, 200);
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Timer
+        function updateTimer() {
+            const timerElement = document.getElementById('nextCardTimer');
+            if (timerElement) {
+                const now = new Date();
+                const target = new Date();
+                target.setHours(18, 0, 0, 0);
+                if (target < now) {
+                    target.setDate(target.getDate() + 1);
+                }
+                const diff = target - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        function openMessage() {
+            alert('메시지 기능은 매칭 후 사용 가능합니다');
+        }
+
+        // Touch/Mouse drag for swipe
+        let startX = 0, currentX = 0;
+
+        cards.forEach(card => {
+            card.addEventListener('mousedown', startDrag);
+            card.addEventListener('touchstart', startDrag);
+        });
+
+        function startDrag(e) {
+            const card = e.currentTarget;
+            if (Array.from(cards).indexOf(card) !== currentCardIndex) return;
+
+            startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+
+            const onMove = (e) => {
+                currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                const diffX = currentX - startX;
+                const rotation = diffX / 20;
+
+                card.style.transform = `translateX(${diffX}px) rotate(${rotation}deg)`;
+
+                const likeIndicator = card.querySelector('.swipe-indicator.like');
+                const nopeIndicator = card.querySelector('.swipe-indicator.nope');
+
+                if (diffX > 0) {
+                    likeIndicator.style.opacity = Math.min(diffX / 100, 1);
+                    nopeIndicator.style.opacity = 0;
+                } else {
+                    nopeIndicator.style.opacity = Math.min(Math.abs(diffX) / 100, 1);
+                    likeIndicator.style.opacity = 0;
+                }
+            };
+
+            const onEnd = () => {
+                const diffX = currentX - startX;
+
+                if (Math.abs(diffX) > 100) {
+                    swipeCard(diffX > 0 ? 'like' : 'nope');
+                } else {
+                    card.style.transform = '';
+                    card.querySelector('.swipe-indicator.like').style.opacity = '0';
+                    card.querySelector('.swipe-indicator.nope').style.opacity = '0';
+                }
+
+                document.removeEventListener('mousemove', onMove);
+                document.removeEventListener('touchmove', onMove);
+                document.removeEventListener('mouseup', onEnd);
+                document.removeEventListener('touchend', onEnd);
+            };
+
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('touchmove', onMove);
+            document.addEventListener('mouseup', onEnd);
+            document.addEventListener('touchend', onEnd);
+        }
+    </script>
+</body>
+</html>

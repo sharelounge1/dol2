@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재연 - 모던 미니멀 컨셉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F8F9FA;
+            color: #2C3E50;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: #FFFFFF;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #F1F3F5;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            color: #4A7C99;
+            letter-spacing: -0.5px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #F8F9FA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: #E1EDF5;
+        }
+
+        .icon-btn .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            background: #E63946;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            padding: 24px;
+            gap: 12px;
+            background: linear-gradient(135deg, #4A7C99 0%, #6B9BB8 100%);
+            color: white;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 16px 12px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Content */
+        .content {
+            padding: 32px 24px 100px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: #6C757D;
+        }
+
+        /* Today Card */
+        .today-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(74, 124, 153, 0.08);
+            border: 1px solid #F1F3F5;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .today-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(74, 124, 153, 0.15);
+        }
+
+        .card-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #F0F6FA 0%, #E1EDF5 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4A7C99;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .time-badge {
+            font-size: 12px;
+            color: #6C757D;
+            background: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .profile-preview {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #E1EDF5 0%, #C7DBEA 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            filter: blur(4px);
+            position: relative;
+        }
+
+        .profile-image::after {
+            content: '프로필 오픈 필요';
+            position: absolute;
+            font-size: 11px;
+            color: #4A7C99;
+            font-weight: 600;
+            filter: blur(0);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 8px;
+        }
+
+        .profile-detail {
+            font-size: 14px;
+            color: #6C757D;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .mini-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: #E1EDF5;
+            color: #4A7C99;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #E1E4E8;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: #6C757D;
+        }
+
+        .action-btn:hover {
+            background: #F0F6FA;
+            border-color: #4A7C99;
+            color: #4A7C99;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #4A7C99 0%, #6B9BB8 100%);
+            color: white;
+            border: none;
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 124, 153, 0.3);
+        }
+
+        /* List Section */
+        .card-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .list-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            border: 1px solid #F1F3F5;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .list-card:hover {
+            border-color: #4A7C99;
+            box-shadow: 0 4px 16px rgba(74, 124, 153, 0.1);
+        }
+
+        .list-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #E1EDF5 0%, #C7DBEA 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .list-info {
+            flex: 1;
+        }
+
+        .list-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 6px;
+        }
+
+        .list-meta {
+            font-size: 13px;
+            color: #6C757D;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .list-status {
+            margin-top: 8px;
+        }
+
+        .status-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .status-badge.received {
+            background: #CDE9DD;
+            color: #2F7A5C;
+        }
+
+        .status-badge.sent {
+            background: #E1EDF5;
+            color: #4A7C99;
+        }
+
+        /* Empty Timer */
+        .timer-empty {
+            background: #F8F9FA;
+            border-radius: 16px;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .timer-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .timer-text {
+            font-size: 16px;
+            color: #6C757D;
+            margin-bottom: 12px;
+        }
+
+        .timer-display {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4A7C99;
+            letter-spacing: 2px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 428px;
+            width: 100%;
+            background: white;
+            border-top: 1px solid #F1F3F5;
+            padding: 12px 24px 12px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            background: #F8F9FA;
+        }
+
+        .nav-item.active {
+            background: #F0F6FA;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6C757D;
+        }
+
+        .nav-item.active .nav-label {
+            color: #4A7C99;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">재연</div>
+            <div class="header-icons">
+                <div class="icon-btn">
+                    <span>🔍</span>
+                </div>
+                <div class="icon-btn">
+                    <span>🔔</span>
+                    <span class="badge"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">2.5K</div>
+                <div class="stat-label">포인트</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">12</div>
+                <div class="stat-label">받은 호감</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3</div>
+                <div class="stat-label">매칭</div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Today Match -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">오늘의 추천</div>
+                    <div class="section-subtitle">신중하게 선별된 회원님을 위한 매칭</div>
+                </div>
+
+                <div class="today-card">
+                    <div class="card-header">
+                        <div class="card-label">
+                            <span>☀️</span>
+                            <span>오전 매칭</span>
+                        </div>
+                        <div class="time-badge">09:00 발행</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="profile-preview">
+                            <div class="profile-image">👤</div>
+                            <div class="profile-info">
+                                <div class="profile-name">김**, 38세</div>
+                                <div class="profile-detail">
+                                    <span>📍</span>
+                                    <span>서울 강남구</span>
+                                </div>
+                                <div class="profile-detail">
+                                    <span>👶</span>
+                                    <span>이혼 1회 · 자녀 1명</span>
+                                </div>
+                                <div class="profile-badges">
+                                    <span class="mini-badge">🎓 인서울대</span>
+                                    <span class="mini-badge">🏢 대기업</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="action-btn">💖 호감</button>
+                            <button class="action-btn primary">프로필 보기</button>
+                            <button class="action-btn">✉️ 메시지</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="height: 16px;"></div>
+
+                <!-- Evening Timer -->
+                <div class="timer-empty">
+                    <div class="timer-icon">🌙</div>
+                    <div class="timer-text">오후 매칭 오픈까지</div>
+                    <div class="timer-display">05:42:18</div>
+                </div>
+            </section>
+
+            <!-- Received Actions -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">받은 호감</div>
+                    <div class="section-subtitle">12명이 회원님께 관심을 보냈어요</div>
+                </div>
+
+                <div class="card-list">
+                    <div class="list-card">
+                        <div class="list-avatar">👤</div>
+                        <div class="list-info">
+                            <div class="list-name">이**, 42세</div>
+                            <div class="list-meta">
+                                <span>서울 서초구</span>
+                                <span>•</span>
+                                <span>금융/보험</span>
+                            </div>
+                            <div class="list-status">
+                                <span class="status-badge received">호감 받음</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="list-card">
+                        <div class="list-avatar">👤</div>
+                        <div class="list-info">
+                            <div class="list-name">박**, 40세</div>
+                            <div class="list-meta">
+                                <span>서울 강남구</span>
+                                <span>•</span>
+                                <span>IT/컴퓨터</span>
+                            </div>
+                            <div class="list-status">
+                                <span class="status-badge received">호감 받음</span>
+                                <span class="status-badge sent">호감 보냄</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="list-card">
+                        <div class="list-avatar">👤</div>
+                        <div class="list-info">
+                            <div class="list-name">최**, 45세</div>
+                            <div class="list-meta">
+                                <span>서울 송파구</span>
+                                <span>•</span>
+                                <span>교육/학원</span>
+                            </div>
+                            <div class="list-status">
+                                <span class="status-badge received">매칭 신청</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Views -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">최근 조회</div>
+                    <div class="section-subtitle">28개의 프로필을 확인했어요</div>
+                </div>
+
+                <div class="card-list">
+                    <div class="list-card">
+                        <div class="list-avatar">👤</div>
+                        <div class="list-info">
+                            <div class="list-name">정**, 39세</div>
+                            <div class="list-meta">
+                                <span>서울 마포구</span>
+                                <span>•</span>
+                                <span>2시간 전</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="list-card">
+                        <div class="list-avatar">👤</div>
+                        <div class="list-info">
+                            <div class="list-name">강**, 43세</div>
+                            <div class="list-meta">
+                                <span>경기 성남시</span>
+                                <span>•</span>
+                                <span>5시간 전</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">홈</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">커뮤니티</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">알림</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">MY</div>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Timer
+        function updateTimer() {
+            const timerElement = document.querySelector('.timer-display');
+            if (timerElement) {
+                const now = new Date();
+                const target = new Date();
+                target.setHours(18, 0, 0, 0);
+                if (target < now) {
+                    target.setDate(target.getDate() + 1);
+                }
+                const diff = target - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>

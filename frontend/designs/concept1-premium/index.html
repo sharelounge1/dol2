@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재연 - 프리미엄 럭셔리 컨셉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            background: #1a1a1a;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, rgba(26,26,26,1) 0%, rgba(26,26,26,0.95) 100%);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .points-badge {
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            color: #1a1a1a;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+        }
+
+        .bell-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .bell-icon::after {
+            content: '3';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #E63946;
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            padding: 32px 20px 24px;
+            background: linear-gradient(180deg, rgba(212,175,55,0.1) 0%, rgba(26,26,26,0) 100%);
+        }
+
+        .welcome-text {
+            font-size: 16px;
+            color: #D4AF37;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .user-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+        }
+
+        /* Today's Match Section */
+        .section {
+            padding: 24px 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .premium-badge {
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            color: #1a1a1a;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .view-all {
+            color: #D4AF37;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .view-all:hover {
+            color: #F4D03F;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .profile-card {
+            background: linear-gradient(145deg, #2d2d2d 0%, #252525 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(212,175,55,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(212,175,55,0.2), 0 0 0 1px rgba(212,175,55,0.3);
+        }
+
+        .profile-card.morning {
+            grid-column: 1 / -1;
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        }
+
+        .profile-card.morning .card-image {
+            aspect-ratio: 16/10;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+            transition: all 0.4s;
+        }
+
+        .profile-card:hover .card-image img {
+            transform: scale(1.05);
+            filter: brightness(1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+        }
+
+        .badges-container {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .verified-badge {
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+            font-size: 16px;
+        }
+
+        .card-info {
+            padding: 16px;
+        }
+
+        .card-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .vip-icon {
+            color: #D4AF37;
+            font-size: 14px;
+        }
+
+        .card-details {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .divider {
+            color: rgba(212,175,55,0.5);
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: rgba(212,175,55,0.15);
+            color: #D4AF37;
+            border: 1px solid rgba(212,175,55,0.3);
+            font-weight: 500;
+        }
+
+        /* Timer */
+        .timer-card {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.05) 100%);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .timer-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+
+        .timer {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        /* Activity Section */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .activity-card {
+            background: linear-gradient(145deg, #2d2d2d 0%, #252525 100%);
+            border: 1px solid rgba(212,175,55,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212,175,55,0.3);
+            box-shadow: 0 8px 16px rgba(212,175,55,0.1);
+        }
+
+        .activity-number {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .activity-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+        }
+
+        .badge-new {
+            display: inline-block;
+            background: #E63946;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-left: 4px;
+            font-weight: 600;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 428px;
+            width: 100%;
+            background: rgba(26,26,26,0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(212,175,55,0.2);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 8px;
+        }
+
+        .nav-item.active {
+            color: #D4AF37;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .nav-item.active .nav-label {
+            color: #D4AF37;
+        }
+
+        /* Placeholder Image */
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 48px;
+        }
+
+        /* Animations */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .loading {
+            background: linear-gradient(90deg, #2d2d2d 0%, #3d3d3d 50%, #2d2d2d 100%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 375px) {
+            .section {
+                padding: 20px 16px;
+            }
+            .card-grid {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">再緣</div>
+            <div class="header-right">
+                <div class="points-badge">
+                    <span>💎</span>
+                    <span>2,500P</span>
+                </div>
+                <div class="bell-icon">
+                    <span style="font-size: 24px;">🔔</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <div class="welcome-text">프리미엄 회원님,</div>
+            <div class="user-name">특별한 인연을 기다리고 있습니다</div>
+            <div class="tagline">"품격있는 만남의 시작"</div>
+        </div>
+
+        <!-- Today's Match -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">
+                    오늘의 PREMIUM 매칭
+                    <span class="premium-badge">VIP</span>
+                </div>
+                <div class="view-all">전체보기 →</div>
+            </div>
+
+            <div class="card-grid">
+                <!-- Morning Card -->
+                <div class="profile-card morning">
+                    <div class="card-image">
+                        <div class="placeholder-image">👤</div>
+                        <div class="badges-container">
+                            <div class="verified-badge" title="인서울 대학">🎓</div>
+                            <div class="verified-badge" title="대기업">🏢</div>
+                            <div class="verified-badge" title="자산 인증">💰</div>
+                        </div>
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-name">
+                            <span>김**, 38세</span>
+                            <span class="vip-icon">👑</span>
+                        </div>
+                        <div class="card-details">
+                            <span>서울 강남구</span>
+                            <span class="divider">|</span>
+                            <span>이혼 1회</span>
+                            <span class="divider">|</span>
+                            <span>자녀 1명</span>
+                        </div>
+                        <div class="card-tags">
+                            <span class="tag">금융/보험</span>
+                            <span class="tag">대졸</span>
+                            <span class="tag">165cm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evening Card - Timer -->
+                <div class="timer-card">
+                    <div class="timer-label">⏰ 오후 매칭 오픈까지</div>
+                    <div class="timer">05:42:18</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">나의 활동</div>
+                <div class="view-all">더보기 →</div>
+            </div>
+
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-number">12</div>
+                    <div class="activity-label">받은 호감</div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-number">
+                        3<span class="badge-new">NEW</span>
+                    </div>
+                    <div class="activity-label">매칭 신청</div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-number">5</div>
+                    <div class="activity-label">메시지</div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-number">28</div>
+                    <div class="activity-label">프로필 조회</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Cards Section -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">최근 본 프로필</div>
+                <div class="view-all">전체보기 →</div>
+            </div>
+
+            <div class="card-grid">
+                <div class="profile-card">
+                    <div class="card-image">
+                        <div class="placeholder-image">👤</div>
+                        <div class="badges-container">
+                            <div class="verified-badge" title="대기업">🏢</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-name">이**, 42세</div>
+                        <div class="card-details">
+                            <span>서울 서초구</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <div class="card-image">
+                        <div class="placeholder-image">👤</div>
+                        <div class="badges-container">
+                            <div class="verified-badge" title="인서울 대학">🎓</div>
+                            <div class="verified-badge" title="자산 인증">💰</div>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-name">
+                            <span>박**, 40세</span>
+                            <span class="vip-icon">👑</span>
+                        </div>
+                        <div class="card-details">
+                            <span>서울 강남구</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacer for bottom nav -->
+        <div style="height: 80px;"></div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">홈</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">커뮤니티</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">알림</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">MY</div>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        // Simple interactivity
+        document.querySelectorAll('.profile-card').forEach(card => {
+            card.addEventListener('click', function() {
+                console.log('Card clicked');
+            });
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Timer countdown
+        function updateTimer() {
+            const timerElement = document.querySelector('.timer');
+            if (timerElement) {
+                // Simple countdown simulation
+                const now = new Date();
+                const target = new Date();
+                target.setHours(18, 0, 0, 0);
+                if (target < now) {
+                    target.setDate(target.getDate() + 1);
+                }
+                const diff = target - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
