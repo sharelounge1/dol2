@@ -78,13 +78,13 @@ const designs = [
   },
   {
     id: 8,
-    title: '컨셉 8: 로맨틱 핑크',
-    subtitle: 'Romantic Pink',
-    description: '따뜻하고 부드러운 감성의 프리미엄 디자인',
-    color: 'bg-gradient-to-br from-pink-600 via-pink-400 to-pink-300',
-    textColor: 'text-white',
-    features: ['핑크 테마', '배찌 텍스트', '프리미엄 라운지'],
-    target: '30~40대 감성적 사용자',
+    title: '컨셉 8: 다시봄날',
+    subtitle: 'Spring Blossom',
+    description: '봄날의 따뜻함과 새로운 시작을 담은 디자인',
+    color: 'bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50',
+    textColor: 'text-pink-600',
+    features: ['봄날 테마', '밝은 파스텔', '부드러운 분위기'],
+    target: '30~50대 따뜻한 인연 추구',
     path: '/frontend/designs/concept8-pink/index.html'
   },
 ]

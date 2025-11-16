@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>재연 - 로맨틱 핑크 컨셉</title>
+    <title>다시봄날 - 봄날 컨셉</title>
     <style>
         * {
             margin: 0;
@@ -13,27 +13,27 @@
 
         body {
             font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #FFF5F7 0%, #FFE8ED 50%, #FFF0F5 100%);
+            color: #2C2C2C;
             min-height: 100vh;
         }
 
         .container {
             max-width: 428px;
             margin: 0 auto;
-            background: #1a1a1a;
+            background: linear-gradient(180deg, #FFFAFC 0%, #FFF5F7 100%);
             min-height: 100vh;
             position: relative;
         }
 
         /* Header */
         .header {
-            background: linear-gradient(180deg, rgba(26,26,26,1) 0%, rgba(26,26,26,0.95) 100%);
+            background: linear-gradient(180deg, rgba(255,250,252,0.98) 0%, rgba(255,250,252,0.95) 100%);
             padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(233,30,99,0.2);
+            border-bottom: 1px solid rgba(255,182,193,0.3);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -43,7 +43,7 @@
         .logo {
             font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(135deg, #E91E63 0%, #F48FB1 50%, #E91E63 100%);
+            background: linear-gradient(135deg, #FF69B4 0%, #FF91C7 50%, #FF69B4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -57,8 +57,8 @@
         }
 
         .points-badge {
-            background: linear-gradient(135deg, #E91E63 0%, #F48FB1 100%);
-            color: #1a1a1a;
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 100%);
+            color: #2C2C2C;
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 14px;
@@ -66,12 +66,13 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 4px 12px rgba(233,30,99,0.3);
+            box-shadow: 0 4px 12px rgba(255,105,180,0.3);
         }
 
         .bell-icon {
             position: relative;
             cursor: pointer;
+            color: #FF69B4;
         }
 
         .bell-icon::after {
@@ -79,7 +80,7 @@
             position: absolute;
             top: -4px;
             right: -4px;
-            background: #E63946;
+            background: #FF1493;
             color: white;
             font-size: 10px;
             width: 16px;
@@ -94,12 +95,12 @@
         /* Welcome Section */
         .welcome-section {
             padding: 32px 20px 24px;
-            background: linear-gradient(180deg, rgba(233,30,99,0.1) 0%, rgba(26,26,26,0) 100%);
+            background: linear-gradient(180deg, rgba(255,182,193,0.15) 0%, rgba(255,250,252,0) 100%);
         }
 
         .welcome-text {
             font-size: 16px;
-            color: #E91E63;
+            color: #FF69B4;
             margin-bottom: 8px;
             font-weight: 500;
         }
@@ -108,14 +109,14 @@
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 12px;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .tagline {
             font-size: 14px;
-            color: rgba(255,255,255,0.7);
+            color: rgba(44,44,44,0.6);
             font-style: italic;
         }
 
@@ -134,15 +135,15 @@
         .section-title {
             font-size: 20px;
             font-weight: 700;
-            color: #ffffff;
+            color: #2C2C2C;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .premium-badge {
-            background: linear-gradient(135deg, #E91E63 0%, #F48FB1 100%);
-            color: #1a1a1a;
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 100%);
+            color: #2C2C2C;
             font-size: 11px;
             padding: 4px 8px;
             border-radius: 4px;
@@ -151,7 +152,7 @@
         }
 
         .view-all {
-            color: #E91E63;
+            color: #FF69B4;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -159,7 +160,7 @@
         }
 
         .view-all:hover {
-            color: #F4D03F;
+            color: #FF1493;
         }
 
         /* Card Grid */
@@ -170,19 +171,19 @@
         }
 
         .profile-card {
-            background: linear-gradient(145deg, #2d2d2d 0%, #252525 100%);
+            background: #ffffff;
             border-radius: 20px;
             overflow: hidden;
             position: relative;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(233,30,99,0.1);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,182,193,0.2);
+            box-shadow: 0 8px 24px rgba(255,105,180,0.1);
         }
 
         .profile-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 16px 32px rgba(233,30,99,0.2), 0 0 0 1px rgba(233,30,99,0.3);
+            box-shadow: 0 16px 32px rgba(255,105,180,0.2), 0 0 0 1px rgba(255,182,193,0.3);
         }
 
         .profile-card.morning {
@@ -194,7 +195,7 @@
             aspect-ratio: 3/4;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #FFE8ED 0%, #FFF0F5 100%);
         }
 
         .profile-card.morning .card-image {
@@ -220,7 +221,7 @@
             left: 0;
             right: 0;
             padding: 16px;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, transparent 100%);
         }
 
         .badges-container {
@@ -229,7 +230,7 @@
             left: 0;
             right: 0;
             padding: 12px 16px;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%);
+            background: linear-gradient(to top, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.85) 100%);
             display: flex;
             gap: 8px;
             align-items: center;
@@ -237,7 +238,7 @@
         }
 
         .badge-text {
-            color: #E91E63;
+            color: #FF69B4;
             font-size: 13px;
             font-weight: 600;
             display: flex;
@@ -246,7 +247,7 @@
         }
 
         .badge-divider {
-            color: rgba(233,30,99,0.5);
+            color: rgba(255,105,180,0.4);
             font-weight: 400;
         }
 
@@ -257,7 +258,7 @@
         .card-name {
             font-size: 18px;
             font-weight: 700;
-            color: #ffffff;
+            color: #2C2C2C;
             margin-bottom: 6px;
             display: flex;
             align-items: center;
@@ -265,13 +266,13 @@
         }
 
         .vip-icon {
-            color: #E91E63;
+            color: #FF69B4;
             font-size: 14px;
         }
 
         .card-details {
             font-size: 13px;
-            color: rgba(255,255,255,0.7);
+            color: rgba(44,44,44,0.6);
             margin-bottom: 4px;
             display: flex;
             align-items: center;
@@ -279,7 +280,7 @@
         }
 
         .divider {
-            color: rgba(233,30,99,0.5);
+            color: rgba(255,105,180,0.4);
         }
 
         .card-tags {
@@ -293,16 +294,16 @@
             font-size: 11px;
             padding: 4px 10px;
             border-radius: 12px;
-            background: rgba(212,175,55,0.15);
-            color: #E91E63;
-            border: 1px solid rgba(233,30,99,0.3);
+            background: rgba(255,182,193,0.2);
+            color: #FF1493;
+            border: 1px solid rgba(255,182,193,0.4);
             font-weight: 500;
         }
 
         /* Timer */
         .timer-card {
-            background: linear-gradient(135deg, rgba(233,30,99,0.1) 0%, rgba(212,175,55,0.05) 100%);
-            border: 1px solid rgba(233,30,99,0.2);
+            background: linear-gradient(135deg, rgba(255,182,193,0.15) 0%, rgba(255,192,203,0.1) 100%);
+            border: 1px solid rgba(255,182,193,0.3);
             border-radius: 16px;
             padding: 20px;
             text-align: center;
@@ -312,14 +313,14 @@
 
         .timer-label {
             font-size: 14px;
-            color: rgba(255,255,255,0.7);
+            color: rgba(44,44,44,0.6);
             margin-bottom: 12px;
         }
 
         .timer {
             font-size: 32px;
             font-weight: 700;
-            background: linear-gradient(135deg, #E91E63 0%, #F48FB1 100%);
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 2px;
@@ -333,8 +334,8 @@
         }
 
         .activity-card {
-            background: linear-gradient(145deg, #2d2d2d 0%, #252525 100%);
-            border: 1px solid rgba(233,30,99,0.1);
+            background: #ffffff;
+            border: 1px solid rgba(255,182,193,0.2);
             border-radius: 16px;
             padding: 20px;
             text-align: center;
@@ -344,14 +345,14 @@
 
         .activity-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(233,30,99,0.3);
-            box-shadow: 0 8px 16px rgba(233,30,99,0.1);
+            border-color: rgba(255,182,193,0.4);
+            box-shadow: 0 8px 16px rgba(255,105,180,0.15);
         }
 
         .activity-number {
             font-size: 28px;
             font-weight: 700;
-            background: linear-gradient(135deg, #E91E63 0%, #F48FB1 100%);
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
@@ -359,7 +360,7 @@
 
         .activity-label {
             font-size: 13px;
-            color: rgba(255,255,255,0.7);
+            color: rgba(44,44,44,0.6);
             font-weight: 500;
         }
 
@@ -388,7 +389,7 @@
 
         .tab {
             padding: 12px 20px;
-            color: rgba(255,255,255,0.5);
+            color: rgba(44,44,44,0.5);
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -402,7 +403,7 @@
         }
 
         .lounge-card {
-            background: linear-gradient(145deg, #2d2d2d 0%, #252525 100%);
+            background: #ffffff;
             border: 1px solid rgba(233,30,99,0.1);
             border-radius: 16px;
             padding: 16px;
@@ -437,19 +438,19 @@
         }
 
         .lounge-username {
-            color: #ffffff;
+            color: #2C2C2C;
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 2px;
         }
 
         .lounge-time {
-            color: rgba(255,255,255,0.5);
+            color: rgba(44,44,44,0.5);
             font-size: 12px;
         }
 
         .lounge-content {
-            color: rgba(255,255,255,0.8);
+            color: rgba(44,44,44,0.7);
             font-size: 14px;
             line-height: 1.6;
             margin-bottom: 12px;
@@ -458,7 +459,7 @@
         .lounge-actions {
             display: flex;
             gap: 16px;
-            color: rgba(255,255,255,0.5);
+            color: rgba(44,44,44,0.5);
             font-size: 13px;
         }
 
@@ -482,7 +483,7 @@
             transform: translateX(-50%);
             max-width: 428px;
             width: 100%;
-            background: rgba(26,26,26,0.95);
+            background: rgba(255,250,252,0.98);
             backdrop-filter: blur(10px);
             border-top: 1px solid rgba(233,30,99,0.2);
             padding: 12px 20px;
@@ -501,8 +502,12 @@
             padding: 8px;
         }
 
+        .nav-item {
+            color: rgba(44,44,44,0.5);
+        }
+
         .nav-item.active {
-            color: #E91E63;
+            color: #FF69B4;
         }
 
         .nav-icon {
@@ -517,22 +522,22 @@
         .nav-label {
             font-size: 11px;
             font-weight: 600;
-            color: rgba(255,255,255,0.7);
+            color: rgba(44,44,44,0.5);
         }
 
         .nav-item.active .nav-label {
-            color: #E91E63;
+            color: #FF69B4;
         }
 
         /* Placeholder Image */
         .placeholder-image {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, #FFE8ED 0%, #FFF0F5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.3);
+            color: rgba(255,182,193,0.5);
             font-size: 48px;
         }
 
@@ -563,7 +568,7 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <div class="logo">再緣</div>
+            <div class="logo">다시봄날</div>
             <div class="header-right">
                 <div class="points-badge">
                     <svg class="w-4 h-4" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle;" fill="currentColor" viewBox="0 0 24 24">
