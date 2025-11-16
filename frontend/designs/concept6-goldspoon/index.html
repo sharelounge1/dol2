@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>재연(再緣) - 컨셉 6: Goldspoon Style</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      max-width: 428px;
+      margin: 0 auto;
+      background: #1a1a1a;
+      min-height: 100vh;
+      position: relative;
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.1);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #D4AF37;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .icon-btn:hover {
+      background: rgba(212, 175, 55, 0.2);
+      transform: scale(1.05);
+    }
+
+    .points-badge {
+      background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+      color: #1a1a1a;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+
+    /* VIP Banner */
+    .vip-banner {
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      border: 2px solid #D4AF37;
+      border-radius: 16px;
+      padding: 20px;
+      margin: 16px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vip-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(10%, 10%); }
+    }
+
+    .vip-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .vip-title {
+      color: #D4AF37;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .crown-icon {
+      font-size: 24px;
+    }
+
+    .vip-desc {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Timer Section */
+    .timer-section {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 0 20px 20px;
+      text-align: center;
+    }
+
+    .timer-label {
+      color: #D4AF37;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .timer {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 2px;
+    }
+
+    /* Section Title */
+    .section-title {
+      color: #D4AF37;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 20px 20px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Profile Card (Large, Premium) */
+    .profile-card {
+      background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 20px;
+      margin: 0 20px 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(212, 175, 55, 0.2);
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 380px;
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .verified-overlay {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(212, 175, 55, 0.95);
+      color: #1a1a1a;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .badge-row {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(212, 175, 55, 0.95);
+      color: #1a1a1a;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .badge.gold { background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); }
+    .badge.silver { background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%); }
+    .badge.bronze { background: linear-gradient(135deg, #CD7F32 0%, #B8732D 100%); }
+
+    .profile-info {
+      padding: 20px;
+    }
+
+    .profile-name {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .profile-meta {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .profile-meta div {
+      margin-bottom: 4px;
+    }
+
+    .profile-intro {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      padding: 16px;
+      background: rgba(212, 175, 55, 0.05);
+      border-radius: 12px;
+      border-left: 3px solid #D4AF37;
+    }
+
+    .action-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+      color: #1a1a1a;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(212, 175, 55, 0.1);
+      color: #D4AF37;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    /* Lounge Section */
+    .lounge-section {
+      padding: 0 20px 20px;
+    }
+
+    .lounge-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .tab {
+      padding: 12px 20px;
+      color: #aaa;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab.active {
+      color: #D4AF37;
+      border-bottom-color: #D4AF37;
+    }
+
+    .lounge-card {
+      background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .lounge-card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateX(4px);
+    }
+
+    .lounge-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .lounge-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+
+    .lounge-user {
+      flex: 1;
+    }
+
+    .lounge-username {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .lounge-time {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .lounge-content {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .lounge-actions {
+      display: flex;
+      gap: 16px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    .lounge-action {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .lounge-action:hover {
+      color: #D4AF37;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 428px;
+      width: 100%;
+      background: linear-gradient(180deg, transparent 0%, #1a1a1a 20%);
+      padding: 12px 20px 24px;
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #777;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item.active {
+      color: #D4AF37;
+    }
+
+    .nav-icon {
+      font-size: 24px;
+    }
+
+    .nav-item:hover {
+      color: #D4AF37;
+      transform: scale(1.05);
+    }
+
+    /* Placeholder image */
+    .placeholder-img {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #D4AF37;
+      font-size: 64px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">재연 ELITE</div>
+      <div class="header-right">
+        <div class="points-badge">2,850P</div>
+        <div class="icon-btn">🔔</div>
+      </div>
+    </div>
+
+    <!-- VIP Banner -->
+    <div class="vip-banner">
+      <div class="vip-content">
+        <div class="vip-title">
+          <span class="crown-icon">👑</span>
+          VIP 회원 전용 프리미엄 매칭
+        </div>
+        <div class="vip-desc">
+          엄선된 엘리트 회원들과의 품격있는 만남을 시작하세요
+        </div>
+      </div>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer-section">
+      <div class="timer-label">다음 프리미엄 카드까지</div>
+      <div class="timer" id="timer">03:42:15</div>
+    </div>
+
+    <!-- Today's Premium Match -->
+    <div class="section-title">
+      ✨ 오늘의 프리미엄 매칭
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-image">
+        <div class="placeholder-img">👤</div>
+        <div class="verified-overlay">
+          ✓ 검증완료
+        </div>
+        <div class="badge-row">
+          <div class="badge gold">💎 연봉 1억+</div>
+          <div class="badge silver">🏢 대기업</div>
+          <div class="badge bronze">🏠 자산 3억+</div>
+        </div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">이** (43세)</div>
+        <div class="profile-meta">
+          <div>📍 서울 강남구 · 👔 금융업 임원</div>
+          <div>💑 이혼 1회 · 👨‍👧 자녀 1명 (양육 중)</div>
+          <div>🎓 인서울 대학 졸업</div>
+        </div>
+        <div class="profile-intro">
+          "새로운 시작을 함께할 진실한 분을 찾습니다. 안정적인 직장과 따뜻한 성격을 가지고 있으며, 자녀와 함께 행복한 가정을 꾸리고 싶습니다."
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-primary">💝 호감 보내기 (200P)</button>
+          <button class="btn btn-secondary">💬 메시지 (500P)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lounge Section -->
+    <div class="section-title">
+      🏛️ 프리미엄 라운지
+    </div>
+
+    <div class="lounge-section">
+      <div class="lounge-tabs">
+        <div class="tab active">전체</div>
+        <div class="tab">재테크</div>
+        <div class="tab">골프</div>
+        <div class="tab">와인</div>
+      </div>
+
+      <div class="lounge-card">
+        <div class="lounge-header">
+          <div class="lounge-avatar">김**</div>
+          <div class="lounge-user">
+            <div class="lounge-username">김** · 45세 · 자산 5억+ 💎</div>
+            <div class="lounge-time">15분 전</div>
+          </div>
+        </div>
+        <div class="lounge-content">
+          이번 주말 서울 근교에서 골프 라운딩 하실 분 계신가요? 여유롭게 플레이 즐기고 식사하면 좋을 것 같아요 ⛳
+        </div>
+        <div class="lounge-actions">
+          <div class="lounge-action">👍 12</div>
+          <div class="lounge-action">💬 5</div>
+          <div class="lounge-action">🔖 저장</div>
+        </div>
+      </div>
+
+      <div class="lounge-card">
+        <div class="lounge-header">
+          <div class="lounge-avatar">박**</div>
+          <div class="lounge-user">
+            <div class="lounge-username">박** · 48세 · 연봉 1억+ 💰</div>
+            <div class="lounge-time">1시간 전</div>
+          </div>
+        </div>
+        <div class="lounge-content">
+          강남에 새로 오픈한 와인바 다녀왔는데 분위기 정말 좋더라구요. 추천합니다! 🍷
+        </div>
+        <div class="lounge-actions">
+          <div class="lounge-action">👍 24</div>
+          <div class="lounge-action">💬 8</div>
+          <div class="lounge-action">🔖 저장</div>
+        </div>
+      </div>
+
+      <div class="lounge-card">
+        <div class="lounge-header">
+          <div class="lounge-avatar">최**</div>
+          <div class="lounge-user">
+            <div class="lounge-username">최** · 41세 · 대기업 🏢</div>
+            <div class="lounge-time">3시간 전</div>
+          </div>
+        </div>
+        <div class="lounge-content">
+          재혼 준비하면서 가장 고민되는 부분이 자녀 문제인 것 같아요. 다들 어떻게 준비하셨는지 조언 부탁드립니다.
+        </div>
+        <div class="lounge-actions">
+          <div class="lounge-action">👍 38</div>
+          <div class="lounge-action">💬 15</div>
+          <div class="lounge-action">🔖 저장</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom padding for fixed nav -->
+    <div style="height: 80px;"></div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <div class="nav-icon">🏠</div>
+        <div>홈</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">🏛️</div>
+        <div>라운지</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">🎉</div>
+        <div>파티</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">💎</div>
+        <div>마이</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Timer countdown
+    function updateTimer() {
+      const now = new Date();
+      let nextCardTime = new Date();
+
+      // Set next card time (6 PM today or 9 AM tomorrow)
+      if (now.getHours() < 18) {
+        nextCardTime.setHours(18, 0, 0, 0);
+      } else {
+        nextCardTime.setDate(nextCardTime.getDate() + 1);
+        nextCardTime.setHours(9, 0, 0, 0);
+      }
+
+      const diff = nextCardTime - now;
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('timer').textContent =
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

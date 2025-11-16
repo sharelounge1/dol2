@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>재연(再緣) - 컨셉 7: Skypeople Style</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #1C1C1E;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      max-width: 428px;
+      margin: 0 auto;
+      background: #1C1C1E;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Top Tabs (Dating / Community) */
+    .top-tabs {
+      display: flex;
+      background: #2C2C2E;
+      border-bottom: 1px solid #3A3A3C;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-tab {
+      flex: 1;
+      padding: 16px;
+      text-align: center;
+      color: #8E8E93;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .top-tab.active {
+      color: #4A90E2;
+    }
+
+    .top-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #4A90E2;
+    }
+
+    /* Header (Dating Tab) */
+    .header {
+      background: #2C2C2E;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #3A3A3C;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #4A90E2;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #3A3A3C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .icon-btn:hover {
+      background: #4A4A4C;
+    }
+
+    .points-badge {
+      background: #4A90E2;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Timer Section */
+    .timer-section {
+      background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+      padding: 20px;
+      margin: 16px 16px 0;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .timer-label {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .timer {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 2px;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 16px;
+      background: #2C2C2E;
+      margin: 16px;
+      border-radius: 12px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      color: #4A90E2;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      color: #8E8E93;
+      font-size: 12px;
+    }
+
+    /* Section Title */
+    .section-title {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 20px 16px 12px;
+    }
+
+    /* Profile Card */
+    .profile-card {
+      background: #2C2C2E;
+      border-radius: 16px;
+      margin: 0 16px 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .profile-card:active {
+      transform: scale(0.98);
+    }
+
+    .profile-header {
+      display: flex;
+      gap: 12px;
+      padding: 16px;
+      border-bottom: 1px solid #3A3A3C;
+    }
+
+    .profile-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .profile-basic {
+      flex: 1;
+    }
+
+    .profile-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .profile-name {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .verified-badge {
+      background: #34C759;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .profile-meta {
+      color: #8E8E93;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .profile-badges {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: #3A3A3C;
+      color: #4A90E2;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge.verified { background: #34C759; color: #fff; }
+    .badge.premium { background: #7B68EE; color: #fff; }
+
+    .profile-intro {
+      padding: 16px;
+      color: #E5E5EA;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .profile-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid #3A3A3C;
+    }
+
+    .action-btn {
+      padding: 14px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #4A90E2;
+    }
+
+    .action-btn:first-child {
+      border-right: 1px solid #3A3A3C;
+    }
+
+    .action-btn:active {
+      background: #3A3A3C;
+    }
+
+    /* Compatibility Section */
+    .compatibility-card {
+      background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 100%);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 0 16px 16px;
+      text-align: center;
+    }
+
+    .compatibility-title {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .compatibility-score {
+      color: #fff;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .compatibility-desc {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 13px;
+    }
+
+    /* Community Section */
+    .community-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      border-bottom: 1px solid #3A3A3C;
+    }
+
+    .community-tab {
+      padding: 8px 16px;
+      background: #2C2C2E;
+      border-radius: 20px;
+      color: #8E8E93;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .community-tab.active {
+      background: #4A90E2;
+      color: #fff;
+    }
+
+    .post-card {
+      background: #2C2C2E;
+      border-radius: 0;
+      padding: 16px;
+      border-bottom: 1px solid #3A3A3C;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .post-card:active {
+      background: #3A3A3C;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .post-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #4A90E2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .post-author {
+      flex: 1;
+    }
+
+    .post-username {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .post-meta {
+      color: #8E8E93;
+      font-size: 12px;
+    }
+
+    .post-content {
+      color: #E5E5EA;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 20px;
+      color: #8E8E93;
+      font-size: 13px;
+    }
+
+    .post-action {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+      color: #fff;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(74, 144, 226, 0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(74, 144, 226, 0.5);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 428px;
+      width: 100%;
+      background: #2C2C2E;
+      padding: 8px 20px 20px;
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid #3A3A3C;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: #8E8E93;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-item.active {
+      color: #4A90E2;
+    }
+
+    .nav-icon {
+      font-size: 24px;
+    }
+
+    /* Placeholder */
+    .placeholder-img {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #3A3A3C 0%, #4A4A4C 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4A90E2;
+      font-size: 48px;
+    }
+
+    /* Hide scrollbar */
+    .community-tabs::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Tabs (Dating / Community) -->
+    <div class="top-tabs">
+      <div class="top-tab active" data-tab="dating">소개팅</div>
+      <div class="top-tab" data-tab="community">커뮤니티</div>
+    </div>
+
+    <!-- Dating Tab Content -->
+    <div class="tab-content active" id="dating-content">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">재연</div>
+        <div class="header-right">
+          <div class="points-badge">1,850P</div>
+          <div class="icon-btn">⚙️</div>
+        </div>
+      </div>
+
+      <!-- Timer -->
+      <div class="timer-section">
+        <div class="timer-label">다음 카드 오픈까지</div>
+        <div class="timer" id="timer">03:42:15</div>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-value">12</div>
+          <div class="stat-label">받은 호감</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">8</div>
+          <div class="stat-label">매칭 성공</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">3</div>
+          <div class="stat-label">번호 교환</div>
+        </div>
+      </div>
+
+      <!-- Compatibility -->
+      <div class="compatibility-card">
+        <div class="compatibility-title">🔮 오늘의 궁합</div>
+        <div class="compatibility-score">92%</div>
+        <div class="compatibility-desc">이 분과의 궁합이 매우 좋습니다!</div>
+      </div>
+
+      <!-- Section Title -->
+      <div class="section-title">오늘의 추천 매칭</div>
+
+      <!-- Profile Card 1 -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">👨</div>
+          <div class="profile-basic">
+            <div class="profile-name-row">
+              <div class="profile-name">김** (42세)</div>
+              <div class="verified-badge">✓ 직장 인증</div>
+            </div>
+            <div class="profile-meta">
+              서울 강남구 · 금융업<br>
+              이혼 1회 · 자녀 1명
+            </div>
+            <div class="profile-badges">
+              <div class="badge verified">🏢 대기업</div>
+              <div class="badge">💰 연봉 7천+</div>
+              <div class="badge">🎓 서울대</div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-intro">
+          "새로운 시작을 함께할 따뜻한 분을 찾습니다. 안정적인 직장 생활을 하고 있으며, 성실하고 책임감 있는 성격입니다."
+        </div>
+        <div class="profile-actions">
+          <div class="action-btn">💝 호감 보내기</div>
+          <div class="action-btn">👀 프로필 보기</div>
+        </div>
+      </div>
+
+      <!-- Profile Card 2 -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">👩</div>
+          <div class="profile-basic">
+            <div class="profile-name-row">
+              <div class="profile-name">이** (38세)</div>
+              <div class="verified-badge">✓ 학교 인증</div>
+            </div>
+            <div class="profile-meta">
+              서울 서초구 · 교육업<br>
+              이혼 1회 · 자녀 없음
+            </div>
+            <div class="profile-badges">
+              <div class="badge verified">🎓 연세대</div>
+              <div class="badge premium">💎 프리미엄</div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-intro">
+          "진지한 재혼을 희망하는 30대 후반입니다. 책임감 있고 가정적인 분과의 만남을 원합니다."
+        </div>
+        <div class="profile-actions">
+          <div class="action-btn">💝 호감 보내기</div>
+          <div class="action-btn">👀 프로필 보기</div>
+        </div>
+      </div>
+
+      <!-- Profile Card 3 -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">👨</div>
+          <div class="profile-basic">
+            <div class="profile-name-row">
+              <div class="profile-name">박** (45세)</div>
+              <div class="verified-badge">✓ 직장 인증</div>
+            </div>
+            <div class="profile-meta">
+              경기 분당구 · IT업<br>
+              이혼 1회 · 자녀 2명
+            </div>
+            <div class="profile-badges">
+              <div class="badge verified">🏢 외국계</div>
+              <div class="badge">🏠 자산 3억+</div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-intro">
+          "외국계 기업에서 근무하고 있으며, 자녀와 함께 행복한 가정을 만들고 싶습니다."
+        </div>
+        <div class="profile-actions">
+          <div class="action-btn">💝 호감 보내기</div>
+          <div class="action-btn">👀 프로필 보기</div>
+        </div>
+      </div>
+
+      <div style="height: 80px;"></div>
+    </div>
+
+    <!-- Community Tab Content -->
+    <div class="tab-content" id="community-content">
+      <!-- Community Tabs -->
+      <div class="community-tabs">
+        <div class="community-tab active">전체</div>
+        <div class="community-tab">재혼 고민</div>
+        <div class="community-tab">육아</div>
+        <div class="community-tab">재테크</div>
+        <div class="community-tab">취미</div>
+        <div class="community-tab">번개 모임</div>
+      </div>
+
+      <!-- Posts -->
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar">익</div>
+          <div class="post-author">
+            <div class="post-username">익명 · 43세</div>
+            <div class="post-meta">5분 전 · 재혼 고민</div>
+          </div>
+        </div>
+        <div class="post-content">
+          재혼 준비하면서 가장 고민되는 부분이 자녀 문제인 것 같아요. 상대방 자녀와 우리 아이가 잘 지낼 수 있을지, 어떻게 준비해야 할지 조언 부탁드립니다.
+        </div>
+        <div class="post-actions">
+          <div class="post-action">👍 24</div>
+          <div class="post-action">💬 12</div>
+          <div class="post-action">🔖 저장</div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar">익</div>
+          <div class="post-author">
+            <div class="post-username">익명 · 39세</div>
+            <div class="post-meta">1시간 전 · 번개 모임</div>
+          </div>
+        </div>
+        <div class="post-content">
+          이번 주말 강남에서 와인 한잔 하실 분 계신가요? 40대 초중반 2~3분 정도 가볍게 모여서 좋은 시간 보내면 좋을 것 같아요 🍷
+        </div>
+        <div class="post-actions">
+          <div class="post-action">👍 18</div>
+          <div class="post-action">💬 8</div>
+          <div class="post-action">🔖 저장</div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar">익</div>
+          <div class="post-author">
+            <div class="post-username">익명 · 41세</div>
+            <div class="post-meta">3시간 전 · 재테크</div>
+          </div>
+        </div>
+        <div class="post-content">
+          재혼 준비하면서 재정 관리도 중요하더라구요. 다들 어떻게 준비하고 계신지 궁금합니다. 부동산, 주식, 예적금 등 조언 부탁드려요!
+        </div>
+        <div class="post-actions">
+          <div class="post-action">👍 32</div>
+          <div class="post-action">💬 15</div>
+          <div class="post-action">🔖 저장</div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar">익</div>
+          <div class="post-author">
+            <div class="post-username">익명 · 37세</div>
+            <div class="post-meta">5시간 전 · 육아</div>
+          </div>
+        </div>
+        <div class="post-content">
+          싱글맘으로 아이 키우면서 재혼 생각하시는 분들 계신가요? 어떻게 준비하고 계신지, 아이한테는 어떻게 얘기해야 할지 고민이 많아요...
+        </div>
+        <div class="post-actions">
+          <div class="post-action">👍 45</div>
+          <div class="post-action">💬 22</div>
+          <div class="post-action">🔖 저장</div>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar">익</div>
+          <div class="post-author">
+            <div class="post-username">익명 · 44세</div>
+            <div class="post-meta">어제 · 취미</div>
+          </div>
+        </div>
+        <div class="post-content">
+          주말에 등산 좋아하시는 분들 계신가요? 북한산이나 관악산 같이 가실 분 찾습니다. 건강도 챙기고 좋은 인연도 만들면 좋을 것 같아요 ⛰️
+        </div>
+        <div class="post-actions">
+          <div class="post-action">👍 28</div>
+          <div class="post-action">💬 11</div>
+          <div class="post-action">🔖 저장</div>
+        </div>
+      </div>
+
+      <div style="height: 80px;"></div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab">✏️</div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <div class="nav-icon">🏠</div>
+        <div>홈</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">💝</div>
+        <div>받은 호감</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">💬</div>
+        <div>채팅</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">👤</div>
+        <div>마이</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Timer countdown
+    function updateTimer() {
+      const now = new Date();
+      let nextCardTime = new Date();
+
+      if (now.getHours() < 18) {
+        nextCardTime.setHours(18, 0, 0, 0);
+      } else {
+        nextCardTime.setDate(nextCardTime.getDate() + 1);
+        nextCardTime.setHours(9, 0, 0, 0);
+      }
+
+      const diff = nextCardTime - now;
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('timer').textContent =
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    // Top tab switching (Dating / Community)
+    document.querySelectorAll('.top-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const targetTab = this.dataset.tab;
+
+        // Update active tab
+        document.querySelectorAll('.top-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        // Show corresponding content
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(`${targetTab}-content`).classList.add('active');
+      });
+    });
+
+    // Community tabs
+    document.querySelectorAll('.community-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.community-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // FAB (Floating Action Button)
+    document.querySelector('.fab').addEventListener('click', function() {
+      alert('글쓰기 기능 (준비 중)');
+    });
+  </script>
+</body>
+</html>

@@ -54,6 +54,28 @@ const designs = [
     target: '30대 SNS 익숙 사용자',
     path: '/frontend/designs/concept5-feed/index.html'
   },
+  {
+    id: 6,
+    title: '컨셉 6: 골드스푼 스타일',
+    subtitle: 'Goldspoon Style',
+    description: '검증 기반 하이엔드 데이팅 앱 (골드스푼 벤치마킹)',
+    color: 'bg-gradient-to-br from-yellow-600 via-yellow-500 to-yellow-400',
+    textColor: 'text-gray-900',
+    features: ['골드+블랙 테마', 'VIP 배너', '프리미엄 라운지'],
+    target: '40~50대 고소득 사용자',
+    path: '/frontend/designs/concept6-goldspoon/index.html'
+  },
+  {
+    id: 7,
+    title: '컨셉 7: 스카이피플 스타일',
+    subtitle: 'Skypeople Style',
+    description: '소개팅+커뮤니티 통합 앱 (스카이피플 벤치마킹)',
+    color: 'bg-gradient-to-br from-blue-600 via-blue-500 to-blue-400',
+    textColor: 'text-white',
+    features: ['다크모드', '탭 분리', '궁합 보기'],
+    target: '30대 직장인 사용자',
+    path: '/frontend/designs/concept7-skypeople/index.html'
+  },
 ]
 
 export default function DesignSelector() {
@@ -69,7 +91,10 @@ export default function DesignSelector() {
             돌싱을 위한 프리미엄 소개팅 앱
           </p>
           <p className="text-lg text-gray-500">
-            홈화면 디자인 컨셉 5종
+            홈화면 디자인 컨셉 7종
+          </p>
+          <p className="text-sm text-gray-400 mt-2">
+            💡 컨셉 6, 7은 실제 경쟁 앱(골드스푼, 스카이피플) 벤치마킹
           </p>
         </div>
 
