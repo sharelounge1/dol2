@@ -76,6 +76,17 @@ const designs = [
     target: '30대 직장인 사용자',
     path: '/frontend/designs/concept7-skypeople/index.html'
   },
+  {
+    id: 8,
+    title: '컨셉 8: 로맨틱 핑크',
+    subtitle: 'Romantic Pink',
+    description: '따뜻하고 부드러운 감성의 프리미엄 디자인',
+    color: 'bg-gradient-to-br from-pink-600 via-pink-400 to-pink-300',
+    textColor: 'text-white',
+    features: ['핑크 테마', '배찌 텍스트', '프리미엄 라운지'],
+    target: '30~40대 감성적 사용자',
+    path: '/frontend/designs/concept8-pink/index.html'
+  },
 ]
 
 export default function DesignSelector() {
@@ -91,10 +102,10 @@ export default function DesignSelector() {
             돌싱을 위한 프리미엄 소개팅 앱
           </p>
           <p className="text-lg text-gray-500">
-            홈화면 디자인 컨셉 7종
+            홈화면 디자인 컨셉 8종
           </p>
           <p className="text-sm text-gray-400 mt-2">
-            💡 컨셉 6, 7은 실제 경쟁 앱(골드스푼, 스카이피플) 벤치마킹
+            💡 컨셉 6, 7은 실제 경쟁 앱(골드스푼, 스카이피플) 벤치마킹 / 컨셉 8은 핑크 컬러 버전
           </p>
         </div>
 
