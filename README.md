@@ -324,21 +324,50 @@ src/
 
 ```bash
 # 1. 저장소 클론
-git clone https://github.com/your-org/dolsing-dating-app.git
-cd dolsing-dating-app
+git clone https://github.com/sharelounge1/dol2.git
+cd dol2
 
 # 2. 의존성 설치
 npm install
 
-# 3. 환경 변수 설정
-cp .env.example .env
-# .env 파일에 필요한 값 입력 (API URL, 결제 키 등)
-
-# 4. 개발 서버 실행
+# 3. 개발 서버 실행
 npm run dev
 ```
 
 브라우저에서 http://localhost:5173 접속
+
+### 디자인 시안 보기
+
+5가지 홈화면 디자인 컨셉을 확인할 수 있습니다:
+
+**방법 1: React 앱에서 보기 (추천)**
+```bash
+npm run dev
+# http://localhost:5173 접속
+# 메인 페이지에서 5개 디자인 선택 가능
+```
+
+**방법 2: HTML 파일 직접 열기**
+```bash
+# PowerShell (Windows)
+start frontend/designs/concept1-premium/index.html
+start frontend/designs/concept2-minimal/index.html
+start frontend/designs/concept3-warm/index.html
+start frontend/designs/concept4-swipe/index.html
+start frontend/designs/concept5-feed/index.html
+
+# Bash (Mac/Linux)
+open frontend/designs/concept1-premium/index.html
+```
+
+**디자인 컨셉 설명**
+1. **프리미엄 럭셔리**: 다크 테마 + 골드, VIP 느낌 (40~50대 고소득층)
+2. **모던 미니멀**: 화이트 + 블루, 깔끔한 디자인 (30~40대 직장인)
+3. **따뜻한 친근함**: 파스텔 톤, 타임라인 형식 (40~50대 감성파)
+4. **카드 스와이프**: 틴더 스타일, 스와이프 제스처 (30대 모바일 익숙)
+5. **타임라인 피드**: 인스타그램 스타일, 소셜 피드 (30대 SNS 익숙)
+
+자세한 내용은 [frontend/designs/README.md](./frontend/designs/README.md) 참고
 
 ### 주요 명령어
 
@@ -351,17 +380,6 @@ npm run test:watch   # 테스트 워치 모드
 npm run type-check   # TypeScript 타입 검사
 npm run lint         # ESLint 검사
 npm run format       # Prettier 포맷팅
-```
-
-### 환경 변수
-
-```env
-VITE_API_BASE_URL=https://api.dolsing-connect.com
-VITE_PAYMENT_CLIENT_KEY=your_payment_key
-VITE_KAKAO_APP_KEY=your_kakao_key
-VITE_NAVER_CLIENT_ID=your_naver_id
-VITE_GOOGLE_CLIENT_ID=your_google_id
-VITE_FCM_VAPID_KEY=your_fcm_key
 ```
 
 ---
